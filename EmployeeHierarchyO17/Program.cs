@@ -27,6 +27,7 @@ public abstract class Employee
     public virtual void Greet()
     {
         System.Console.WriteLine("Hi");
+        //virtual has a default that can sometimes be changed
     }
    
 }   // abstract virtual and override are always used on methods, not variables or fields
@@ -38,13 +39,16 @@ public abstract class Employee
 
 public class Manager : Employee
 {
-    protected string ApproveBudget()
+    protected string ApproveBudget() 
+    //you can write new methods on top of the inherited class
+    //and using old variables is as simple as calling them,
     {
         return $"Budget Approved by {Name}";
     }    
+
     public override void CalculateSalary()
     {
-        
+        //must have this because abstract says have it
     }
 }
 public class Developer : Employee
@@ -57,7 +61,7 @@ public class Developer : Employee
     {
         
     }
-    public override void Greet()
+    public override void Greet() //this is how you change it
     {
         System.Console.WriteLine("ya boi");
     }
