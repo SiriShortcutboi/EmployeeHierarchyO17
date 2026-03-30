@@ -19,49 +19,47 @@ public class Program
 
 public abstract class Employee
 {
-    protected abstract string Name {get; set;}
+    protected string Name {get; set;}
+    protected string Salary {get; set;}
          //use protected to get and set at ^protected level automatically
-    protected override string NameGive()
+
+    public abstract void CalculateSalary();
+    public virtual void Greet()
     {
-        Name = "Employee";
-        return Name;
+        System.Console.WriteLine("Hi");
     }
-protected abstract string Salary {get; set;}
-    public string SalaryAmount()
-    {
-        
-        Salary = "$95,000";
-        return Salary; 
-    } 
+   
+}   // abstract virtual and override are always used on methods, not variables or fields
+    
+    //override is always in the child class
+    //abstract and virtual are always in the parent class 
 
 
-}
 
 public class Manager : Employee
 {
-    protected override string Name {get; set;}  // protected is still tied to the class like private, 
-    protected string NameGive()
-    {
-        Name = "Steve";
-        return Name;
-    }   
     protected string ApproveBudget()
     {
         return $"Budget Approved by {Name}";
+    }    
+    public override void CalculateSalary()
+    {
+        
     }
-
-
-    
 }
 public class Developer : Employee
-{
-    protected override string Name { get; set; }
-    string Name = "Steve";
-    return Name;
-    
+{    
     public string WriteCode()
     {
         return $"{Name} is writing code.";
+    }
+    public override void CalculateSalary()
+    {
+        
+    }
+    public override void Greet()
+    {
+        System.Console.WriteLine("ya boi");
     }
 }
 
