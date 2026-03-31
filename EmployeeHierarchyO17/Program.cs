@@ -3,27 +3,50 @@
 namespace workforce;
 public class Program
 {
-	public static void Main()
-	{   
-		Developer dev = new Developer();
-        dev.Name = "Alice";
-        Console.WriteLine(dev.Name); // Output: Alice
-        dev.WriteCode(); // Output: Alice is writing code 
+    public static void Main()
+    {
+        Developer dev = new Developer();
+        dev.SetName("Alice");
+        dev.SetSalary(75000);
 
-        Manager coolmanager = new Manager();
-        coolmanager.Name = "Steve";
-        Console.WriteLine(dev.Name); 
-        coolmanager.ApproveBudget();
-	}
+        Console.WriteLine($"Developer Name = {dev.Name}");
+        Console.WriteLine($"Developer Salary = {dev.Salary:C}");//I learned that putting
+        Console.WriteLine(dev.WriteCode());                // C on the end is kinda like a callback 
+                                              // to the trim and to lower methods to put a Cultural
+        Console.WriteLine();//new line);    
+
+        Manager coolManager = new Manager();
+        coolManager.SetName("Steve");
+        coolManager.SetSalary(95000);
+
+        Console.WriteLine($"Manager Name = {coolManager.Name}");
+        Console.WriteLine($"Manager Salary = {coolManager.Salary:C}"); //Money sign on our number
+        Console.WriteLine(coolManager.ApproveBudget());
+    }
 }
 
 public abstract class Employee
 {
-    protected string Name {get; set;}
-    protected string Salary {get; set;}
-         //use protected to get and set at ^protected level automatically
+    private string _name = string.Empty;
+    public string Name { get => _name; protected set => _name = value; } //learning about lambda one-liner
+    public int Salary { get; protected set; }
+
+    // use a method like SetName thats easy to recognize, and declare a new lowercase 
+// string variable to available to the public, then join protected Name to our public name 
+    public void SetName(string name)
+    {
+        Name = name; //setting to value like mentioned
+    }
+
+    // another public method that can be called from Main.
+    public void SetSalary(int salary)
+    {
+
+        Salary = salary;
+    }
 
     public abstract void CalculateSalary();
+
     public virtual void Greet()
     {
         System.Console.WriteLine("Hi");
@@ -39,9 +62,7 @@ public abstract class Employee
 
 public class Manager : Employee
 {
-    protected string ApproveBudget() 
-    //you can write new methods on top of the inherited class
-    //and using old variables is as simple as calling them,
+    public string ApproveBudget()
     {
         return $"Budget Approved by {Name}";
     }    
@@ -57,11 +78,13 @@ public class Developer : Employee
     {
         return $"{Name} is writing code.";
     }
+
     public override void CalculateSalary()
     {
         
     }
-    public override void Greet() //this is how you change it
+    public override void Greet() //this is how you change it, 
+                            // change the original greet method on this one
     {
         System.Console.WriteLine("ya boi");
     }
